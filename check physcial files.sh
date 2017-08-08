@@ -10,4 +10,3 @@ if [[ ! -f "$file" ]] ;
 then echo "$ids ,File $file doesn't exist" >> /tmp/abhineet/output;
 fi;
 done
-
