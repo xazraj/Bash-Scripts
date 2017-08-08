@@ -5,9 +5,3 @@ if [ $? -eq 0 ]; then
  ps -ef | grep keyword | grep -v java > /tmp/keyword.txt #Checking for Java in the proccess
 mailx -r fromaddress -s  "keyword Running on server @ `date`, please switch to server1" email </tmp/keyword.txt
 fi
-
-
-
-
-
-
