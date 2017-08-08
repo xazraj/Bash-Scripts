@@ -1,0 +1,20 @@
+#!/bin/bash
+: > /tmp/WEB_SERVICE_STATUS
+curl -Is http://10.10.10.10/webservice/  | grep -i "HTTP/1.1" | awk {'print $2'} > /tmp/HTTP_CODE
+for line in `cat /tmp/HTTP_CODE`
+do
+    if [ $line -eq 200 ]
+then
+printf "\nWorking with ease\n"
+else
+printf "ITS NOT WORKING\n"
+printf "\n" >> /tmp/WEB_SERVICE_STATUS
+printf "STATUS OF Web Service DEPLOYED ON 10.10.10.10 " >> /tmp/WEB_SERVICE_STATUS
+echo -e "\n" >> /tmp/WEB_SERVICE_STATUS
+echo -e "============================================================\n" >> /tmp/WEB_SERVICE_STATUS
+#echo -e "\n" >> /tmp/WEB_SERVICE_STATUS
+curl -Is http://10.10.10.10/webservice/ >> /tmp/WEB_SERVICE_STATUS
+cat /tmp/WEB_SERVICE_STATUS | mailx  -s "Web Service is DOWN -- `date +"%B-%d-%y %l:%M %p"`, Please check" abhineetraj@hotmail.com
+exit
+fi
+done

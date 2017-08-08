@@ -1,0 +1,3 @@
+1)Need to copy that attached cert file in mail to my home directory
+2)Attached cert to servers using keytool
+/usr/java/jdk1.6.0_141/bin/keytool -import -file /home/username/certname.cer -alias aliasname -keystore /usr/java/jdk1.6.0_141/jre/lib/security/cacerts

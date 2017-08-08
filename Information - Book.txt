@@ -1,0 +1,203 @@
+Questions
+Have you worked with Version control tools in UNIX environment?   
+Have you used default values for variables in the shell scripts? 
+Have you used the functions defined in the external file in the scripts?
+Have you used command line parameters & getopt function in the scripts?   
+Have you worked on code refactoring or optimization?   
+Have you worked on multi-threading programming in UNIX?    
+How many months of work experience you have on Socket Programming?    
+How many projects you worked on run-time analysis using tools like Rational Purify Plus (Purify/Quantify)?
+How many months of working experience do you have on implementation of IPC concepts (Shared Memory, Sockets, Semaphores, Message Queues)      
+=========================================================================================
+initial=( `cat "$startfile" | sed -e '/#/d' | tr -d '\n' |\
+# Delete lines containing '#' comment character
+==
+if [ -x "$filename" ]; - for checking if file exists.
+==
+for file in /{,usr/}bin/*calc
+#             ^    Find all executable files ending in "calc"
+#+                 in /bin and /usr/bin directories.
+==
+: > data.xxx # File "data.xxx" now empty.
+# Same effect as cat /dev/null >data.xxx
+==
+> creates the file if it is absent.
+==
+trinary operator
+condition?result-if-true:result-if-false
+==
+Array=(element1 element2 element3) -- definition
+Array[1]=slot_1
+echo ${Array[1]} -- output is slot_1
+== 
+smart copy command
+cp file22.{txt,backup}
+# Copies "file22.txt" to "file22.backup"
+==
+echo {file1,file2}\ :{\ A," B",' C'}
+file1 : A file1 : B file1 : C file2 : A file2 : B file2 : C
+==
+echo {a..i} #a b c d e f g h i
+base64_charset=( {A..Z} {a..z} {0..9} + / = )
+{ a=321; } -- variable defined inside () can only be reference inside but {} can be referenced in the remainder of the program.
+== 
+(( var0 = var1<98?9:21 ))
+condition?result-if-true:result-if-false
+==
+$$ returns the process ID
+== 
+value defined inside {} remain visible to the remainder of the script
+a=123 { a=321; } echo "a = $a"   # a = 321
+==
+/etc/vfstab - disk partition and size defined
+==
+man test will give all file options for instance - if [ -z "$1" ] - length of the string
+==
+These 2 commands are equivalent
+# touch file1.txt
+# echo file1.txt | xargs touch
+==
+command &>filename  redirects both the stdout and the stderr of command to filename
+>| force re-writing to a file, || - logical operator.
+==
+backup all files changed in the last day
+
+#!/bin/bash
+#  Backs up all files in current directory modified within last 24 hours
+#+ in a "tarball" (tarred and gzipped file).
+BACKUPFILE=backup-$(date +%m-%d-%Y)
+#                 Embeds date in backup filename.
+#                 Thanks, Joshua Tschida, for the idea.
+archive=${1:-$BACKUPFILE}
+#  If no backup-archive filename specified on command-line,
+#+ it will default to "backup-MM-DD-YYYY.tar.gz."
+tar cvf - `find . -mtime -1 -type f -print` > $archive.tar
+gzip $archive.tar
+echo "Directory $PWD backed up in archive file \"$archive.tar.gz\"."
+==
+zipping one day old files.
+find . -mtime -1 -type f -print0 | xargs -0 tar rvf "$archive.tar"
+#      using the GNU version of "find".
+#   find . -mtime -1 -type f -exec tar rvf "$archive.tar" '{}' \;
+#         portable to other UNIX flavors, but much slower.
+# -----------------------------------------------------------
+==
+var="-n"
+echo $var               
+# Has the effect of "echo -n", and outputs nothing
+==
+~+ - pwd
+~- - old pwd
+== 
+Ctrl + R -- reverse search with keyword in history.
+Ctrl + W -- deletes a word behind a space
+==
+"VARIABLE =value"
+#% Script tries to run "VARIABLE" command with one argument, "=value".
+"VARIABLE= value"
+#% Script tries to run "value" command with
+#+ the environmental variable "VARIABLE" set to ""
+==
+hello="A B  C   D"
+echo $hello   # A B C D
+echo "$hello" # A B  C   D - doesn't remove space, preserves the variable as it is.
+==
+a=`ls -l`
+echo $a #removed tabs and new lines
+==
+/etc/redhat-release
+==
+a=2334
+b=${a/23/BB} # b=BB35 - replacing a variable
+let "b += 1" #BB35+1
+echo "b = $b" -- displays value as 1 as BB35 converts to 0 in arithmetic terms
+==
+$value is same as ${value} // If first one doesn't work, try the second one.
+"" is called partial quoting
+No space permitted on either side of = sign when initializing variables
+unset variable - unset the value of the variable
+==
+escaping a character is a backward slash
+number=12\ is\ mine
+echo "Number is $number" gives output as - Number is 12 is mine
+==
+a=`ls -lrth`
+echo $a - will everything in one single line
+echo "$a" - will display everything including new lines.
+==
+a=2335
+b=${a/23/BB}  -- BB35 is the new value for b.
+==
+variable1_=$1_  # Rather than variable1=$1 ($1 is expected argument)
+# This will prevent an error, even if positional parameter is absent.
+==
+sed -e 's/\<plan\>/changed/g' xyz
+will only change word plan and not planning.
+==
+$0, $1, $2, $3- 0 is script name, 1 is first argument and so..on.. 
+after 9, 10 should in braces {10}
+==
+if [ -n "$1" ] - testing if the length of string is non-zero
+S# means how many arguments or parameters were passed.
+==
+shift command - for shifting arguments positions to left- $2 becomes $1 and $3 becomes $2 etc. - line 188
+var="'(]\\{}\$\""
+echo $var  will give --> '(]\{}$"
+\v means vertical tab
+\r return
+==
+echo "This will print \
+as one line."
+# This will print as one line.
+==
+echo -e "\v\v\v\v" # Prints 4 vertical tabs. - if we remove e which means intepretation of backslash escapes, it wil print \v\v\v\v
+==
+ echo $'\101\102\103\010' - ABC -- ASCII characters, |||ly - \033 is for escape.
+==
+script can also be written to detect key presses like home delete end etc.  - read pg 46.
+echo \z # z
+echo \\z # \z
+echo '\z' # \z
+echo '\\z' # \\z
+echo "\z" # \z
+echo "\\z" # \z
+# Command substitution
+echo `echo \z` # z
+echo `echo \\z` # z
+echo `echo \\\z` # \z
+echo `echo \\\\z` # \z
+echo `echo \\\\\\z` # \z
+echo `echo \\\\\\\z` # \\z
+echo `echo "\z"` # \z
+echo `echo "\\z"` # \z
+==
+variable=\\\ - Will not work - gives an error message - First escape escapes second one, but the third one is left "naked".
+what is meant by restarting the listener
+==
+ssh -t marsadm@10.134.126.102 ssh marsadm@hub1 - will run the last command on the server
+==
+When a script ends with an exit that has no parameter, the exit status of the script is the exit status of the last command executed
+exit status $? is 0 and 1-255 for an error status.
+==
+The !, the logical not qualifier, reverse the outcome. ! needs a space just after it.
+netstat -r - shows you routing table. how is the information flowing.
+==
+/etc/shells gives you all the shells that is available in the system.
+exit 3 # Only exits the subshell.
+==
+shift is a bash built-in which kind of removes arguments in beginning of the argument list. Given that the arguments provided to the script are 3 available in $1, $2, $3, then a call to shift will make $2 the new $1
+==
+
+
+
+
+
+
+
+
+
+
+
+
+
+
