@@ -1,0 +1,17 @@
+Creating a user on the command line #MAC
+
+Creating user
+
+dscl . -create /Users/uid
+dscl . -create /Users/uid UserShell /bin/bash
+dscl . -create /Users/uid RealName "First  Last Name" 
+dscl . -create /Users/uid UniqueID "513"
+dscl . -create /Users/uid PrimaryGroupID 20
+dscl . -create /Users/uid NFSHomeDirectory /Users/uid
+dscl . -passwd /Users/uid password
+dscl . -append /Groups/admin GroupMembership uid
+
+
+Deleting user
+
+dscl . -delete "/Users/uid"
