@@ -15,3 +15,5 @@ dscl . -append /Groups/admin GroupMembership uid
 Deleting user
 
 dscl . -delete "/Users/uid"
+
+dscl . -list /Users UniqueID | awk ' { print $2" "  $1 } ' | sort -r
