@@ -17,3 +17,8 @@ Deleting user
 dscl . -delete "/Users/uid"
 
 dscl . -list /Users UniqueID | awk ' { print $2" "  $1 } ' | sort -r
+
+
+Linux
+useradd -m -d /home/araj -s /bin/bash -c "Default Owner" -U abhineet
+userdel abhineet
