@@ -1,7 +1,7 @@
 #!/bin/bash
 nl=`wc -l < /var/local/users`
 	if [ "$nl" = 0 ]; then
- 		printf "\n ******  /var/local/adm/users file is empty, no action performed ******\n"
+ 		printf "\n ******  /var/local/users file is empty, no action performed ******\n"
 	else
 		printf "\n ****** Checking User in LDAP ******\n"
 		for uid in `cat /var/local/users`
