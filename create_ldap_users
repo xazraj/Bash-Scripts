@@ -1,0 +1,32 @@
+#!/bin/bash
+nl=`wc -l < /var/local/users`
+	if [ "$nl" = 0 ]; then
+ 		printf "\n ******  /var/local/adm/users file is empty, no action performed ******\n"
+	else
+		printf "\n ****** Checking User in LDAP ******\n"
+		for uid in `cat /var/local/users`
+		do
+		getent passwd $uid
+		if [ $? -eq 0 ];
+		then
+			sleep 2
+			printf "\n ****** $uid found in LDAP ******\n"
+			mkdir /home/$uid
+			cd /home/$uid
+			mkdir .ssh
+			cd .ssh
+			touch authorized_keys
+			cd /home
+			chown -R $uid:org $uid
+			chmod 700 $uid/.ssh
+			cd /home/$uid/.ssh
+			printf "\n ****** Copying the public key from S3 bucket ****** \n"
+			aws s3 cp s3://bucketname/$uid/.ssh/ ./ --recursive
+			chmod 644 /home/$uid/.ssh/authorized_keys
+			printf "\n ****** User $uid is created ******\n"
+		else
+			sleep 2
+			printf "\n ****** User $uid is not found on LDAP ****** \n"
+		fi
+		done
+	fi
