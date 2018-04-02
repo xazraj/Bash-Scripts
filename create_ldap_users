@@ -1,4 +1,5 @@
 #!/bin/bash
+#Maintaining a users file
 nl=`wc -l < /var/local/users`
 	if [ "$nl" = 0 ]; then
  		printf "\n ******  /var/local/users file is empty, no action performed ******\n"
