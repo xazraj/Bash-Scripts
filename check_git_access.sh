@@ -16,3 +16,7 @@ echo " https://github.com/github_username/$corrurl/settings/collaboration" >> /t
 fi
 done
 cat /tmp/acc
+###This is how the urls file looks like
+#https://api.github.com/repos/github_username/repo_name/collaborators
+#https://api.github.com/repos/github_username/airflow/collaborators
+#https://api.github.com/repos/github_username/worldmap/collaborators
