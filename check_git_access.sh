@@ -13,6 +13,7 @@ corrurl=$(echo $url | awk -F "/" '{print $6 }')
 echo " https://github.com/github_username/$corrurl/settings/collaboration" >> /tmp/acc
 #Comment the following line if you don't want to open the repos on chrome, it works on Mac OSX
 /usr/bin/open -a "/Applications/Google Chrome.app" "https://github.com/github_username/$corrurl/settings/collaboration"
+#Following line can be used if you need to delete the collaborators through the script
 #curl -X DELETE -i -u "user:pass" https://api.github.com/repos/user/repo/collaborators/john.doe
 fi
 done
