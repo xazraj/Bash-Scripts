@@ -1,0 +1,7 @@
+cd <localdir>
+git init
+git add .
+git commit -m 'message'
+git remote add origin https://github.com/abhineetraj/Bash-Scripts.git
+#git push -u origin master
+git pull origin master
