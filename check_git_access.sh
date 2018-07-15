@@ -1,4 +1,5 @@
 #!/bin/bash
+#Making the temp change
 touch /tmp/acc && :> /tmp/acc
 # You can either pass the github username in the script or pass it as an argument
 printf "\n Enter the password for the github account \n"
