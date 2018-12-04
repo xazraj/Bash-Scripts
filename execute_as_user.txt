@@ -5,5 +5,5 @@ if [ "$USER" = abhineet ]; then
 
         exit 1
 else
-    echo "Please re-run the script as abhineet user"
+    echo "Please re-run the script as user abhineet"
 fi
