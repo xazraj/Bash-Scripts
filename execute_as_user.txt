@@ -1,0 +1,9 @@
+if [ "$USER" = abhineet ]; then
+        cd /apps/webservice
+        git pull
+        docker-compose -f docker-compose.yml -f docker-compose.qa.yml restart
+
+        exit 1
+else
+    echo "Please re-run the script as abhineet user"
+fi
