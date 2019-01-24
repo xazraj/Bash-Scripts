@@ -1,0 +1,34 @@
+#CentOS6 forwarding
+if $programname contains 'supervisord' then @logger.google.com:1514
+#CentOS7 forwarding
+if $programname == 'supervisord' then {
+  action(type="omfwd" Target="logger" Port="1514" Protocol="udp")
+}
+#Receiving on CentOS7
+$umask 0000
+
+template(name="googleprod" type="string" string="/var/logs/google/%$YEAR%-%$MONTH%/%PROGRAMNAME%-%$YEAR%-%$MONTH%-%$DAY%.log")
+template(name="googledev" type="string" string="/var/logs/google/%$YEAR%-%$MONTH%/%PROGRAMNAME%-%$YEAR%-%$MONTH%-%$DAY%.log")
+template(name="googlestg" type="string" string="/var/logs/google/%$YEAR%-%$MONTH%/%PROGRAMNAME%-%$YEAR%-%$MONTH%-%$DAY%.log")
+
+if $inputname == "GLUDP1514" then {
+  if $fromhost-ip startswith '10.' then {
+    action(type="omfile" DynaFile="googleprod" dirCreateMode="0755" FileCreateMode="0644" dynaFileCacheSize="200")
+  }
+  if $fromhost-ip startswith '172.20.' then {
+    action(type="omfile" DynaFile="googleprod" dirCreateMode="0755" FileCreateMode="0644" dynaFileCacheSize="200")
+  }
+  if $fromhost-ip startswith '172.21.' then {
+    action(type="omfile" DynaFile="googlestg" dirCreateMode="0755" FileCreateMode="0644" dynaFileCacheSize="200")
+  }
+  if $fromhost-ip startswith '34.233.191.' then {
+    action(type="omfile" DynaFile="googlestg" dirCreateMode="0755" FileCreateMode="0644" dynaFileCacheSize="200")
+  }
+  if $fromhost-ip startswith '172.24.' then {
+    action(type="omfile" DynaFile="googledev" dirCreateMode="0755" FileCreateMode="0644" dynaFileCacheSize="200")
+  }
+  action(type="omfwd" Target="siem-001" Port="1514" Protocol="udp")
+  stop
+}
+
+input(type="imudp" port="1514" inputname="GLUDP1514")
