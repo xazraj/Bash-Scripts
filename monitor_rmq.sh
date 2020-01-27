@@ -25,6 +25,6 @@ done
 count=$(wc -l /tmp/immreport | cut -d " " -f1)
 
 if [ $count -gt 10 ]; then
-	cat /tmp/immreport | mailx -r sysops@mpulsemobile.com -s "Hermes Prod Immediate Queue > 5 mins" abhineetraj@hotmail.com
+	cat /tmp/immreport | mailx -r admin@google.com -s "Hermes Prod Immediate Queue > 5 mins" abhineetraj@hotmail.com
 	
 fi
