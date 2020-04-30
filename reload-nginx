@@ -1,0 +1,8 @@
+#!/bin/bash
+/usr/sbin/nginx -t
+if [ $? -eq 0 ];
+then
+/usr/sbin/service nginx  reload
+else
+echo "nginx config is wrong, not reloading"
+fi
