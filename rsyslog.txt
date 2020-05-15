@@ -32,3 +32,22 @@ if $inputname == "GLUDP1514" then {
 }
 
 input(type="imudp" port="1514" inputname="GLUDP1514")
+
+
+
+
+=====
+Scripts
+
+#!/bin/bash -
+
+OLDMONTH=`date -d now-6month +%Y-%m`
+
+rm -rf /var/local/logs/*/${OLDMONTH}/
+
+
+#!/bin/bash
+
+/bin/kill -HUP `cat /var/run/syslogd.pid`
+
+find /var/local/logs -type f -a \! -name "*`date -d now +%Y-%m-%d`*log" -a \! -name "*.log.gz" -exec gzip {} \;
