@@ -51,3 +51,11 @@ rm -rf /var/local/logs/*/${OLDMONTH}/
 /bin/kill -HUP `cat /var/run/syslogd.pid`
 
 find /var/local/logs -type f -a \! -name "*`date -d now +%Y-%m-%d`*log" -a \! -name "*.log.gz" -exec gzip {} \;
+
+
+===
+gunicorn settings
+
+syslog_addr = 'udp://logger.google.com:1514'
+syslog = True
+syslog_prefix = 'google'
