@@ -15,5 +15,5 @@ fi
 done
 count=$(wc -l /tmp/report | cut -d " " -f1)
 if [ $count -gt 1 ]; then
-cat /tmp/report | mailx -r PlatformPROD-RMQ@mpulsemobile.com -s "Platform Prod Queue -Threshold cross" abhineetraj@hotmail.com
+cat /tmp/report | mailx -r PlatformPROD-RMQ@google.com -s "Platform Prod Queue -Threshold cross" abhineetraj@hotmail.com
 fi
